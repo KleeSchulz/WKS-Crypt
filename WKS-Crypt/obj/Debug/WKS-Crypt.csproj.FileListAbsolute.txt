@@ -1,0 +1,10 @@
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\bin\Debug\WKS-Crypt.exe.config
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\bin\Debug\WKS-Crypt.exe
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\bin\Debug\WKS-Crypt.pdb
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.csprojAssemblyReference.cache
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS_Crypt.Hauptmenue.resources
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS_Crypt.Properties.Resources.resources
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.csproj.GenerateResource.cache
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.exe
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.pdb
