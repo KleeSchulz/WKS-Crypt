@@ -8,3 +8,5 @@ C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.csproj.G
 C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.csproj.CoreCompileInputs.cache
 C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.exe
 C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS-Crypt.pdb
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS_Crypt.verschluesselung.resources
+C:\Users\Sebastian\source\repos\WKS-Crypt\WKS-Crypt\obj\Debug\WKS_Crypt.entschluesselung.resources

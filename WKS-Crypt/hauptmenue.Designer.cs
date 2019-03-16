@@ -51,6 +51,7 @@
             this.btn_verschluesselung.TabIndex = 0;
             this.btn_verschluesselung.Text = "Verschlüsselung";
             this.btn_verschluesselung.UseVisualStyleBackColor = true;
+            this.btn_verschluesselung.Click += new System.EventHandler(this.btn_verschluesselung_Click);
             // 
             // btn_entschluesselung
             // 
@@ -60,6 +61,7 @@
             this.btn_entschluesselung.TabIndex = 1;
             this.btn_entschluesselung.Text = "Entschlüsselung";
             this.btn_entschluesselung.UseVisualStyleBackColor = true;
+            this.btn_entschluesselung.Click += new System.EventHandler(this.btn_entschluesselung_Click);
             // 
             // btn_beenden
             // 
@@ -69,6 +71,7 @@
             this.btn_beenden.TabIndex = 2;
             this.btn_beenden.Text = "Beenden";
             this.btn_beenden.UseVisualStyleBackColor = true;
+            this.btn_beenden.Click += new System.EventHandler(this.btn_beenden_Click);
             // 
             // credits
             // 
@@ -78,6 +81,7 @@
             this.credits.TabIndex = 3;
             this.credits.Text = "Credits";
             this.credits.UseVisualStyleBackColor = true;
+            this.credits.Click += new System.EventHandler(this.credits_Click);
             // 
             // pictureBox1
             // 
