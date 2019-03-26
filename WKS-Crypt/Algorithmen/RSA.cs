@@ -1,54 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace WKS_Crypt
 {
     class RSA
     {
-        byte[] dataToEncrypt = Encoding.ASCII.GetBytes("Verschlüssel mich!");
-        
-        public static byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKeyInfo, bool DoOAEPPadding)
+        private static RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);
+        private RSAParameters _privateKey;
+        private RSAParameters _publicKey;
+
+        public RSA()
         {
-            try {
+            _privateKey = csp.ExportParameters(true);
+            _publicKey = csp.ExportParameters(false);
+        }
 
-                byte[] encryptedData;
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.ImportParameters(RSAKeyInfo);
-                    encryptedData = RSA.Encrypt(DataToEncrypt, DoOAEPPadding);
+        public string PublicKeyString()
+        {
+            var sw = new StringWriter();
+            var xs = new XmlSerializer(typeof(RSAParameters));
+            xs.Serialize(sw, _publicKey);
+            return sw.ToString();
+        }
 
-                }
-                return encryptedData;
-            }
-            catch(Exception ex)
+        public string PrivateKeyString()
+        {
+            var sw = new StringWriter();
+            var xs = new XmlSerializer(typeof(RSAParameters));
+            xs.Serialize(sw, _privateKey);
+            return sw.ToString();
+        }
+
+        public string Encrypt(string plainText)
+        {
+            csp = new RSACryptoServiceProvider();
+            csp.ImportParameters(_publicKey);
+            var data = Encoding.Unicode.GetBytes(plainText);
+            var cypher = csp.Encrypt(data, false);
+            return Convert.ToBase64String(cypher);
+        }
+
+        public string Decrypt(string cypherText)
+        {
+            var dataBytes = Convert.FromBase64String(cypherText);
+            csp.ImportParameters(_privateKey);
+            var plainext = csp.Decrypt(dataBytes, false);
+            return Encoding.Unicode.GetString(plainext);
+        }
+
+        public void createFileWithPrivateKey()
+        {
+            string fileName = @"C:\temp\privateKey.txt";
+            using (FileStream fs = File.Create(fileName))
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                Byte[] title = new UTF8Encoding(true).GetBytes(PrivateKeyString());
+                fs.Write(title, 0, title.Length);
             }
         }
 
-        public static byte[] RSADecrypt(byte[] DataToDecrypt, RSAParameters RSAKeyInfo, bool DoOAEPPadding)
+        public void createFileWithPublicKey()
         {
-            try
+            string fileName = @"C:\temp\publicKey.txt";
+            using (FileStream fs = File.Create(fileName))
             {
-                byte[] decryptedData;
-
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.ImportParameters(RSAKeyInfo);
-                    decryptedData = RSA.Decrypt(DataToDecrypt, DoOAEPPadding);
-                }
-                return decryptedData;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
+                Byte[] title = new UTF8Encoding(true).GetBytes(PublicKeyString());
+                fs.Write(title, 0, title.Length);
             }
         }
     }
