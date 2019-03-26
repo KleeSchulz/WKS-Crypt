@@ -117,4 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="rtb_credits.Text" xml:space="preserve">
+    <value>Version: 1.0
+
+Diese Anwendung wurde im Rahmen eines Schulprojektes für die 
+Ferdinand-Braun-Schule entwickelt.
+
+© 2019
+Kevin Kazek, Christian Wende, Philipp Walter, Sebastian Schulz
+Alle Rechte vorbehalten.</value>
+  </data>
 </root>

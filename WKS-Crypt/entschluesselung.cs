@@ -10,36 +10,68 @@ using System.Windows.Forms;
 
 namespace WKS_Crypt
 {
-    public partial class entschluesselung : Form
+    public partial class Entschluesselung : Form
     {
-        public entschluesselung()
+        public Entschluesselung()
         {
             InitializeComponent();
             cb_art.SelectedIndexChanged += cb_art_SelectedIndexChanged;
+			tb_verschluesselt.TextChanged += tb_verschluesselt_TextChanged;
         }
 
-        private void cb_art_SelectedIndexChanged(object sender, EventArgs e)
+		private void entschluesselung_Load(object sender, EventArgs e)
+		{
+			cb_art.SelectedIndex = 0;
+		}
+
+		private void tb_verschluesselt_TextChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				switch (cb_art.SelectedIndex)
+				{
+					// AES
+					case 0:
+						tb_entschluesselt.Text = AES.Decrypt(tb_verschluesselt.Text);
+						break;
+					// RSA
+					case 1:
+						//tb_entschluesselt.Text = RSA.Decryption(tb_normal.Text);
+						break;
+					// DES
+					case 2:
+						break;
+				}
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+		}
+
+		private void cb_art_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cb_art.SelectedIndex)
-            {
-                case 0:
-                    
-                    break;
-                case 1:
-                    tb_entschluesselt.Text = RSA.Decryption(tb_normal.Text);
-                    break;
-            }
+			try
+			{
+				switch (cb_art.SelectedIndex)
+				{
+					// AES
+					case 0:
+						tb_entschluesselt.Text = AES.Decrypt(tb_verschluesselt.Text);
+						break;
+					// RSA
+					case 1:
+						//tb_entschluesselt.Text = RSA.Decryption(tb_normal.Text);
+						break;
+					// DES
+					case 2:
+						break;
+				}
+			}
+			catch (Exception)
+			{
+				throw;
+			}
         }
-
-        
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void entschluesselung_Load(object sender, EventArgs e)
-        {
-
-        }
-    }
+	}
 }

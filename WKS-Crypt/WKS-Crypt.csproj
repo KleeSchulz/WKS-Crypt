@@ -46,38 +46,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithmen\AES.cs" />
+    <Compile Include="Algorithmen\DES.cs" />
     <Compile Include="Credits.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
-    <Compile Include="entschluesselung.cs">
+    <Compile Include="Entschluesselung.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="entschluesselung.Designer.cs">
-      <DependentUpon>entschluesselung.cs</DependentUpon>
+    <Compile Include="Entschluesselung.Designer.cs">
+      <DependentUpon>Entschluesselung.cs</DependentUpon>
     </Compile>
-    <Compile Include="hauptmenue.cs">
+    <Compile Include="Hauptmenue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="hauptmenue.Designer.cs">
-      <DependentUpon>hauptmenue.cs</DependentUpon>
+    <Compile Include="Hauptmenue.Designer.cs">
+      <DependentUpon>Hauptmenue.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RSA.cs" />
-    <Compile Include="verschluesselung.cs">
+    <Compile Include="Algorithmen\RSA.cs" />
+    <Compile Include="Verschluesselung.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="verschluesselung.Designer.cs">
-      <DependentUpon>verschluesselung.cs</DependentUpon>
+    <Compile Include="Verschluesselung.Designer.cs">
+      <DependentUpon>Verschluesselung.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="entschluesselung.resx">
-      <DependentUpon>entschluesselung.cs</DependentUpon>
+    <EmbeddedResource Include="Credits.resx">
+      <DependentUpon>Credits.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="hauptmenue.resx">
-      <DependentUpon>hauptmenue.cs</DependentUpon>
+    <EmbeddedResource Include="Entschluesselung.resx">
+      <DependentUpon>Entschluesselung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hauptmenue.resx">
+      <DependentUpon>Hauptmenue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -88,8 +93,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="verschluesselung.resx">
-      <DependentUpon>verschluesselung.cs</DependentUpon>
+    <EmbeddedResource Include="Verschluesselung.resx">
+      <DependentUpon>Verschluesselung.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
