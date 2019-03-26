@@ -12,66 +12,100 @@ namespace WKS_Crypt
 {
     class RSA
     {
-        private static RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);
-        private RSAParameters _privateKey;
-        private RSAParameters _publicKey;
+        private static RSACryptoServiceProvider rsaCsp;
+        private static RSAParameters publicKey;
+        private static RSAParameters privateKey;
 
-        public RSA()
+        static RSA()
         {
-            _privateKey = csp.ExportParameters(true);
-            _publicKey = csp.ExportParameters(false);
+            rsaCsp = new RSACryptoServiceProvider();
         }
-
-        public string PublicKeyString()
+        public void SerializeKeys(string PublicKeyFileName, string PrivateKeyFileName)
         {
-            var sw = new StringWriter();
-            var xs = new XmlSerializer(typeof(RSAParameters));
-            xs.Serialize(sw, _publicKey);
-            return sw.ToString();
-        }
-
-        public string PrivateKeyString()
-        {
-            var sw = new StringWriter();
-            var xs = new XmlSerializer(typeof(RSAParameters));
-            xs.Serialize(sw, _privateKey);
-            return sw.ToString();
-        }
-
-        public string Encrypt(string plainText)
-        {
-            csp = new RSACryptoServiceProvider();
-            csp.ImportParameters(_publicKey);
-            var data = Encoding.Unicode.GetBytes(plainText);
-            var cypher = csp.Encrypt(data, false);
-            return Convert.ToBase64String(cypher);
-        }
-
-        public string Decrypt(string cypherText)
-        {
-            var dataBytes = Convert.FromBase64String(cypherText);
-            csp.ImportParameters(_privateKey);
-            var plainext = csp.Decrypt(dataBytes, false);
-            return Encoding.Unicode.GetString(plainext);
-        }
-
-        public void createFileWithPrivateKey()
-        {
-            string fileName = @"C:\temp\privateKey.txt";
-            using (FileStream fs = File.Create(fileName))
+            using (var rsa = new RSACryptoServiceProvider(4096))
             {
-                Byte[] title = new UTF8Encoding(true).GetBytes(PrivateKeyString());
-                fs.Write(title, 0, title.Length);
+                try
+                {
+                    //Public Key
+                    string publickeystring;
+                    StreamReader sr = new System.IO.StreamReader(PublicKeyFileName);
+                    publickeystring = sr.ReadToEnd();
+                    sr.Close();
+                    var st = new System.IO.StringReader(publickeystring);
+                    var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                    publicKey = (RSAParameters)xs.Deserialize(st);
+                    //Private Key
+                    string privatekeystring;
+                    StreamReader sr2 = new System.IO.StreamReader(PrivateKeyFileName);
+                    privatekeystring = sr2.ReadToEnd();
+                    sr2.Close();
+                    var st2 = new System.IO.StringReader(privatekeystring);
+                    var xs2 = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                    privateKey = (RSAParameters)xs2.Deserialize(st2);
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+        }
+        public void generateKeys(string PublicKeyFileName, string PrivateKeyFileName)
+        {
+            using (var rsa = new RSACryptoServiceProvider(1024))
+            {
+                rsa.PersistKeyInCsp = false;
+                publicKey = rsa.ExportParameters(false);
+                
+                string pubKeyString;
+                {
+                    //To string
+                    var sw = new System.IO.StringWriter();
+                    var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                    xs.Serialize(sw, publicKey);
+                    pubKeyString = sw.ToString();
+                    StreamWriter sr2 = new System.IO.StreamWriter(PublicKeyFileName);
+                    sr2.Write(pubKeyString);
+                    sr2.Close();
+                }
+                privateKey = rsa.ExportParameters(true);
+                string privKeyString;
+                {
+                    //To string
+                    var sw2 = new System.IO.StringWriter();
+                    var xs2 = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                    xs2.Serialize(sw2, privateKey);
+                    privKeyString = sw2.ToString();
+                    StreamWriter sr = new System.IO.StreamWriter(PrivateKeyFileName);
+                    sr.Write(privKeyString);
+                    sr.Close();
+                }
+                
             }
         }
-
-        public void createFileWithPublicKey()
+        public string Encrypt(string InputText)
         {
-            string fileName = @"C:\temp\publicKey.txt";
-            using (FileStream fs = File.Create(fileName))
+            using (var rsa = new RSACryptoServiceProvider(1024))
             {
-                Byte[] title = new UTF8Encoding(true).GetBytes(PublicKeyString());
-                fs.Write(title, 0, title.Length);
+                rsa.PersistKeyInCsp = false;
+                rsa.ImportParameters(publicKey);
+                var bytesPlainTextData = System.Text.Encoding.Unicode.GetBytes(InputText);
+                var bytesCypherText = rsa.Encrypt(bytesPlainTextData, false);
+                var cypherText = Convert.ToBase64String(bytesCypherText);
+                return cypherText;
+            }
+        }
+        public string Decrypt(string InputText)
+        {
+            using (var rsa = new RSACryptoServiceProvider(4096))
+            {
+                rsa.PersistKeyInCsp = false;
+                rsa.ImportParameters(privateKey);
+                var bytesCypherText = Convert.FromBase64String(InputText);
+                var bytesPlainTextData = rsa.Decrypt(bytesCypherText, false);
+                string decrypted_text = System.Text.Encoding.Unicode.GetString(bytesPlainTextData);
+                return decrypted_text;
             }
         }
     }
